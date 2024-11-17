@@ -10,10 +10,205 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script src="cw_classes.js"></script>
-
-
 </head>
 <body>
-    
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <div>
+                <!-- Show the Shopping Cart button only if there are items in the cart -->
+                <button v-if="cartItemCount > 0" @click="toggleView">
+                    {{ cartItemCount }} <i class="fa-solid fa-cart-shopping"></i> Shopping Cart
+                </button>
+            
+                <!-- Show a disabled Shopping Cart button if the cart is empty -->
+                <button v-else disabled>
+                    <i class="fa-solid fa-cart-shopping"></i> Shopping Cart
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div>
+                <!-- Show class listing when showClasses is true-->
+                <div class="container" v-if="showClasses">
+                    <!-- Container helps manage layout and structure, ensuring proper
+                    spacing and alignment across different screen sizes-->
+                    <div class="sort-container">
+                        <p><strong>Sort by</strong></p>
+                        <label><input type="radio" value="subject" v-model="sortBy"> Subject</label>
+                        <label><input type="radio" value="location" v-model="sortBy"> Location</label>
+                        <label><input type="radio" value="price" v-model="sortBy"> Price</label>
+                        <label><input type="radio" value="spaces" v-model="sortBy"> Availability</label>
+        
+                        <p><strong>Order</strong></p>
+                        <label><input type="radio" value="asc" v-model="sortOrder"> Ascending</label>
+                        <label><input type="radio" value="desc" v-model="sortOrder"> Descending</label>
+                    </div>
+
+                    <div v-for="classItem in sortedClasses" :key="classItem.id" class="lesson-item"> 
+                        <div class="lesson-info"> <!--container for text-->
+                        <p><strong>Subject: </strong>{{classItem.subject}}</p>
+                        <p><strong>Location: </strong>{{classItem.location}}</p>
+                        <p><strong>Price: £</strong>{{classItem.price}}</p>
+                        <p><strong>Spaces: </strong>{{classItem.spaces - cartCount(classItem.id)}}</p>
+
+                        
+                        <button @click="addToCart(classItem)" :disabled="classItem.spaces === cartCount(classItem.id)">Add to cart</button>
+                        <span v-if="classItem.spaces === cartCount(classItem.id)">No Space Left.</span>
+                        <span v-else-if="classItem.spaces - cartCount(classItem.id) < 5">Only {{classItem.spaces - cartCount(classItem.id)}} left!</span>
+                        </div>
+
+                        <figure> <img v-bind:src="classItem.iconClass" width="100" height="100"></figure>
+                    </div>
+                </div>
+            
+                <!-- Show Checkout page when showclasses is false-->
+                <div v-else>
+                    <h2>Welcome to checkout!</h2>
+                    <p> Details of the Cart:</p>
+                    
+                    <div v-for="classItem in cartDetails" :key="classItem.id" class="lesson-item"> 
+                        <div class="lesson-info"> <!--container for text-->
+                        <p><strong>Subject: </strong>{{classItem.subject}}</p>
+                        <p><strong>Location: </strong>{{classItem.location}}</p>
+                        <p><strong>Price: £</strong>{{classItem.price}}</p>
+                        <p><strong>Quantity: </strong>{{classItem.quantity}}</p>
+
+                        <button @click="removeFromCart(classItem)">Remove</button>
+                    </div>
+
+                        <figure><img v-bind:src="classItem.iconClass" width="100" height="100"></figure>
+                    </div>
+
+                    <div>
+                        <p>
+                            <strong>Name:</strong>
+                            <input v-model="order.name"/>
+                        </p>
+                        <p>
+                            <strong>Number:</strong>
+                            <input v-model="order.phoneNumber"/>
+                        </p>
+
+                         <!-- Show the Checkout button only if there Name and Phone Number are entered -->
+                        <button v-if="order.name !== '' && order.phoneNumber !== ''" @click="submitForm">
+                            Check Out
+                        </button>
+            
+                        <!-- Show a disabled Checkout button if Name and Phone Number are empty -->
+                        <button v-else disabled> Check Out</button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var webstore = new Vue({
+            el: '#app',
+            data:{
+                sitename:'After School Classes & Activities',
+                showClasses: true,
+                sortBy: 'price', // default sort by price
+                sortOrder: 'asc', // default sort by price
+                classes:classes,
+                cart:[],
+                order: {
+                    name: '',
+                    phoneNumber: ''
+                    }
+                },
+            
+            methods: {
+                toggleView(){
+                    this.showClasses = !this.showClasses;
+                },
+                addToCart(classItem){
+                    if (classItem.spaces > this.cartCount(classItem.id)){
+                        this.cart.push(classItem.id);
+                    }
+                },
+
+                canAddToCart(classItem){
+                    return classItem.spaces >this.cartCount(classItem.id);
+                },
+
+                cartCount(id) {
+                    let count=0;
+                    for (let i=0; i<this.cart.length; i++) {
+                        if (this.cart[i] === id){
+                            count++
+                        }
+                    }
+                    return count;
+                },
+
+                itemsLeft(classItem){
+                    return classItem.spaces - this.cartCount(classItem.id);
+                },
+
+                removeFromCart(classItem) {
+                    let index = this.cart.indexOf(classItem.id);
+                    if (index > -1) {
+                        this.cart.splice(index,1); //remove the item from cart
+                    }
+                },
+        
+               submitForm(){
+                    const namePattern = /^[A-Za-z\s]+$/;
+                    const phonePattern = /^\d+$/;
+                    
+                    if(this.order.name === '' || this.order.phoneNumber === '') {
+                        alert('Please enter your name and phone number');
+                    } else if (!namePattern.test(this.order.name)) {
+                        alert('Name must be letters only.')
+                    } else if (!phonePattern.test(this.order.phoneNumber)) {
+                        alert('Phone Number must be numbers only.')
+                    } else {
+                        alert('Order Submitted, Thank you!')
+                    }
+                }
+
+            },
+
+            computed: {
+                cartItemCount() {
+                    return this.cart.length || "";
+                },
+                sortedClasses(){
+                    let sortedArray=this.classes.slice(); // copy array
+
+                    sortedArray.sort((a,b) => {
+                        let modifier = this.sortOrder === 'asc' ? 1 : -1;
+
+                        if (this.sortBy === 'price' || this.sortBy === 'spaces') {
+                            return (a[this.sortBy] - b[this.sortBy]) * modifier // numeric sort for price and spaces
+                        } else {
+                            return a[this.sortBy].localeCompare(b[this.sortBy])* modifier //string sort for subject and location
+                        }
+                    });
+                return sortedArray;
+                },
+                
+                cartDetails(){
+                    // using map to count the quantities in cart
+                    let cartItems = this.cart.reduce((acc, id) => {
+                        let classItem = this.classes.find(c => c.id === id);
+                        if (classItem) {
+                            if (!acc[classItem.id]) {
+                                acc[classItem.id]={...classItem, quantity:1};
+                            } else {
+                                acc[classItem.id].quantity++;
+                            }
+                        }
+                        return acc;
+                    }, {});
+                    return Object.values(cartItems); //converts back to array
+                }
+            }
+        });
+    </script>
 </body>
 </html>

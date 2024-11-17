@@ -1,7 +1,7 @@
 let classes = [
     {
         id: 1,
-        iconClass: "/frontend-cw/images/mathematics.png",
+        iconClass: "./images/mathematics.png",
         subject: "Mathematics",
         location: "Hendon",
         price: 23.00,
@@ -9,7 +9,7 @@ let classes = [
     },
     {
         id: 2,
-        iconClass: "/frontend-cw/images/coding.png",
+        iconClass: "./images/coding.png",
         subject: "Computer Science",
         location: "Mont Rose",
         price: 27.00,
