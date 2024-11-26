@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    min-height: 100vh; /* Ensures the body takes the full viewport height */
+    margin: 0; /* Removes default margin */
+    background-color: #8cc8dc; /* Light blue background */
+    font-family: Arial, sans-serif; /* Sets default font */
+}
+
+/* Grid Layout for Content */
+.container {
+    display: grid; /* Creates a grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 1rem; /* Space between grid items */
+    padding: 1rem; /* Padding around the grid */
+    width: 100%; /* Ensures the container spans the full width */
+}
+
+/* Card Styles for Lessons */
+.lesson-item {
+    border: 1px solid #ddd; /* Light border around each card */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem; /* Inner spacing for content */
+    background: #fff; /* White background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Centers text inside the card */
+    display: flex; /* Flexbox for vertical alignment */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+/* Lesson Info */
+.lesson-info {
+    margin-bottom: 1rem; /* Space below lesson information */
+}
+
+/* Image Styling */
+figure {
+    margin: 0; /* Removes default margin around the figure */
+}
+
+figure img {
+    max-width: 100%; /* Ensures images don't overflow */
+    height: 100px; /* Fixed height for uniformity */
+    border-radius: 8px; /* Rounded corners for images */
+    object-fit: cover; /* Ensures images maintain aspect ratio */
+}
+
+/* Buttons */
+button {
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text */
+    border: none; /* Removes default button border */
+    padding: 0.5rem 1rem; /* Adds space inside the button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.3s; /* Smooth hover transition */
+}
+
+button:disabled {
+    background-color: #ccc; /* Gray background for disabled buttons */
+    cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+}
+
+button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Header */
+header {
+    text-align: center; /* Centers header text */
+    padding: 1rem; /* Inner spacing for header */
+    background: #f8f9fa; /* Light gray background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 1rem; /* Space below the header */
+}
+
+/* Sort Container */
+.sort-container {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack items vertically */
+    gap: 1.5rem; /* Space between sections */
+    justify-content: flex-start; /* Align items to the start */
+    text-align: center; /* Center text inside the container */
+    background: #fff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem; /* Inner spacing for content */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 600px; /* Maximum width for the container */
+    margin: 1rem auto; /* Centers the container and adds top/bottom space */
+}
+
+/* Sections Inside Sort Container */
+.sort-section {
+    flex-direction: row; /* Align labels and inputs side-by-side */
+    gap: 0.5rem; /* Space between labels and buttons */
+}
+
+/* Form for Checkout */
+.checkout-form {
+    margin: 1rem auto; /* Centers the form and adds top/bottom space */
+    padding: 1rem; /* Inner spacing for form elements */
+    border: 1px solid #ddd; /* Light border around the form */
+    border-radius: 8px; /* Rounded corners */
+    background: #f9f9f9; /* Light gray background */
+    max-width: 400px; /* Limits the form's width */
+    text-align: left; /* Aligns text to the left */
+}

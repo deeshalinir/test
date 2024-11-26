@@ -1,11 +1,11 @@
-let classes = [
+let classes = [ 
     {
         id: 1,
-        iconClass: "./images/mathematics.png",
+        iconClass:"./images/mathematics.png",
         subject: "Mathematics",
         location: "Hendon",
         price: 23.00,
-        spaces: 5
+        spaces: 10
     },
     {
         id: 2,
@@ -13,7 +13,7 @@ let classes = [
         subject: "Computer Science",
         location: "Mont Rose",
         price: 27.00,
-        spaces: 5
+        spaces: 12
         
     },
     {
@@ -22,7 +22,7 @@ let classes = [
         subject: "Art",
         location: "Hammersmith",
         price: 25.00,
-        spaces: 5
+        spaces: 12
     },
     {
         id: 4,
@@ -30,7 +30,7 @@ let classes = [
         subject: "Geography",
         location: "Collindate",
         price: 17.00,
-        spaces: 5
+        spaces: 8
     },
     {
         id: 5,
@@ -38,7 +38,7 @@ let classes = [
         subject: "Sciences",
         location: "Edgeware",
         price: 24.00,
-        spaces: 5    
+        spaces: 13    
     },
     {
         id: 6,
@@ -46,7 +46,7 @@ let classes = [
         subject: "Business Entrepreneuship",
         location: "Hyde",
         price: 29.00,
-        spaces: 5
+        spaces: 12
     },
     {
         id: 7,
@@ -54,7 +54,7 @@ let classes = [
         subject: "Cycling Club",
         location: "Petersborogh",
         price: 10.00,
-        spaces: 5
+        spaces: 12
     },
     {
         id: 8,
@@ -62,7 +62,7 @@ let classes = [
         subject: "Psychology",
         location: "St Mary",
         price: 33.00,
-        spaces: 5
+        spaces: 13
     },
     {
         id: 9,
@@ -70,7 +70,7 @@ let classes = [
         subject: "Chinese",
         location: "Florence",
         price: 25.00,
-        spaces: 5
+        spaces: 15
     },
     {
         id: 10,
@@ -78,6 +78,6 @@ let classes = [
         subject: "Debate Club",
         location: "Glebe",
         price: 8.00,
-        spaces: 5
+        spaces: 15
     }
 ]
